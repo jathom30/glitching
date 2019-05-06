@@ -1,13 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 import logo from './images/logo-bull-600x556.png'
+import sorry from './images/sorry.png'
 
 const SliceContainer = styled.div`
   position: relative;
   height: ${props => props.height}px;
   overflow: hidden;
   .slice {
-    background-image: url(${logo});
+    background-image: url(${props => props.image});
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -56,6 +57,7 @@ const Slice = props => {
       random={random}
       negative={bool}
       hue={hue}
+      image={props.image}
     >
       <div className="slice" />
     </SliceContainer>
@@ -66,33 +68,41 @@ const Slices = props => {
   const [heightOffset, setHeightOffset] = React.useState([])
   const [glitching, setGlitching] = React.useState(false)
 
-  // React.useEffect(() => {
-  //   //TODO: interval should be long short
-  //   const lowRandom = Math.floor(Math.random() * 600) + 100
-  //   const highRandom = Math.floor(Math.random() * 3000) + 1000
-  //   const timer = glitching ? lowRandom : highRandom
-  //   const interval = setInterval(() => {
-  //     setGlitching(!glitching)
-  //   }, timer)
-  //   return () => clearInterval(interval)
-  // }, [glitching])
+  React.useEffect(() => {
+    const lowRandom = Math.floor(Math.random() * 600) + 100
+    const highRandom = Math.floor(Math.random() * 3000) + 1000
+    const timer = glitching ? lowRandom : highRandom
+    const interval = setInterval(() => {
+      setGlitching(!glitching)
+    }, timer)
+    return () => clearInterval(interval)
+  }, [glitching])
 
-  const randomHeight = maxHeight => {
-    for (let i=0; i<maxHeight;) {
-      const height = Math.floor(Math.random() * 30) + 10 // random height between 10px and 30px
-      const newHeightOffset = {height: height, offset: i}
-      heightOffset.push(newHeightOffset)
-      i += height
+
+  React.useEffect(() => {
+    let heightOffset = []
+    const randomHeight = maxHeight => {
+      for (let i=0; i<maxHeight;) {
+        const height = Math.floor(Math.random() * 20) + 5 // random height between 10px and 30px
+        const newHeightOffset = {height: height, offset: i}
+        heightOffset.push(newHeightOffset)
+        i += height
+      }
+      setHeightOffset(heightOffset)
     }
-  }
-
-  randomHeight(props.height)
+    randomHeight(props.height)
+  },[props.height])
 
   return(
-    <div>
+    <div style={{maxWidth: '50%', margin: '0 auto', padding: 10}}>
       {
         heightOffset.map((object, index) => (
-          <Slice key={index} glitching={glitching} height={object.height} top={object.offset} overallHeight={props.height} />
+          <Slice key={index} glitching={glitching} height={object.height} top={object.offset} overallHeight={props.height} image={logo} />
+        ))
+      }
+      {
+        heightOffset.map((object, index) => (
+          <Slice key={index} glitching={glitching} height={object.height} top={object.offset} overallHeight={props.height} image={sorry} />
         ))
       }
     </div>
