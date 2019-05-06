@@ -16,7 +16,7 @@ const Image = styled.img`
   height: auto;
   filter: hue-rotate(${props => props.hue}deg);
   transform: translateX(
-    ${props => (props.negative ? '-' : '')} ${props => props.random}%
+    ${props => (props.negative ? '-' : '')}${props => props.random}%
   );
 `
 
@@ -63,7 +63,7 @@ const Glitch = props => {
   React.useEffect(() => {
     //TODO: interval should be long short
     const lowRandom = Math.floor(Math.random() * 600) + 100
-    const highRandom = Math.floor(Math.random() * 5000) + 3000
+    const highRandom = Math.floor(Math.random() * 3000) + 1000
     const timer = glitching ? lowRandom : highRandom
     const interval = setInterval(() => {
       setGlitching(!glitching)
