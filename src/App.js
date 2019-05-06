@@ -2,10 +2,12 @@ import React from 'react'
 import Slices from './Slices'
 
 const App = ()  => {
+  const [show, setShow] = React.useState(false)
 
   return (
     <div>
-      <Slices height={300} />
+      {show && <Slices height={300} />}
+      <button onClick={() => setShow(!show)}>{show ? 'stop' : 'start'}</button>
     </div>
   );
 }
