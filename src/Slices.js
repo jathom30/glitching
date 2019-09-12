@@ -1,7 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import logo from './images/logo-bull-600x556.png'
-import sorry from './images/sorry.png'
 
 const SliceContainer = styled.div`
   position: relative;
@@ -97,12 +95,7 @@ const Slices = props => {
     <div style={{maxWidth: '50%', margin: '0 auto', padding: 10}}>
       {
         heightOffset.map((object, index) => (
-          <Slice key={index} glitching={glitching} height={object.height} top={object.offset} overallHeight={props.height} image={logo} />
-        ))
-      }
-      {
-        heightOffset.map((object, index) => (
-          <Slice key={index} glitching={glitching} height={object.height} top={object.offset} overallHeight={props.height} image={sorry} />
+          <Slice key={index} glitching={glitching} height={object.height} top={object.offset} overallHeight={props.height} image={props.image} />
         ))
       }
     </div>

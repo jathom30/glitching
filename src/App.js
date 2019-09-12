@@ -1,13 +1,12 @@
 import React from 'react'
 import Slices from './Slices'
+import sorry from './images/sorry.png'
 
 const App = ()  => {
-  const [show, setShow] = React.useState(false)
 
   return (
     <div>
-      {show && <Slices height={300} />}
-      <button onClick={() => setShow(!show)}>{show ? 'stop' : 'start'}</button>
+      <Slices height={500} image={sorry} />
     </div>
   );
 }
